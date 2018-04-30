@@ -9,13 +9,18 @@ const StyledWrapper = styled.div`
   margin: ${props => props.theme.space.sm};
 `;
 
-let listKey = 0;
+// let listKey = 0;
 const Board = ({ play }) => (
   <StyledWrapper id="board">
-    {Array.from({ length: 9 }).map(() => {
-      listKey += 1;
-      return <Cell key={listKey} play={play} />;
-    })}
+    <Cell play={play} />
+    <Cell play={play} />
+    <Cell play={play} />
+    <Cell play={play} />
+    <Cell play={play} />
+    <Cell play={play} />
+    <Cell play={play} />
+    <Cell play={play} />
+    <Cell play={play} />
   </StyledWrapper>
 );
 

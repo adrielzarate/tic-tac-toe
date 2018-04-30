@@ -9,11 +9,6 @@ const Button = styled.button`
   font-size: ${props => props.theme.fontSizes.xl};
   color: ${props => props.theme.colors.grayLight};
   cursor: pointer;
-  background-image: linear-gradient(
-    to bottom,
-    ${props => props.theme.colors.white},
-    ${props => props.theme.colors.grayLight}
-  );
   /* background: ${props => props.theme.colors.white}; */
   border: 1px solid ${props => props.theme.colors.grayLight};
   border-radius: ${props => props.theme.space.xs};
@@ -24,9 +19,9 @@ const Button = styled.button`
   outline: none;
   &:hover {
     background-image: linear-gradient(
-      to bottom,
+      to top,
       ${props => props.theme.colors.white},
-      ${props => props.theme.colors.grayMid}
+      ${props => props.theme.colors.grayLight}
     );
   }
 `;

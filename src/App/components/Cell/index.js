@@ -13,8 +13,6 @@ const StyledCell = styled(Button)`
   }
   &.disable {
     text-transform: uppercase;
-    font-size: ${props => props.theme.fontSizes.lg};
-    font-family: Georgia, 'Times New Roman', Times, serif;
     color: ${props => props.theme.colors.white};
     text-shadow: 0 -1px 0 ${props => transparentize(0.25, props.theme.colors.black)};
   }

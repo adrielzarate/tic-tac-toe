@@ -84,7 +84,6 @@ class App extends Component {
 
   play = (e) => {
     const thisEl = e.target;
-    console.log(thisEl);
     if (this.winner('o')) {
       console.log('GANA O');
       this.endState(O);
@@ -98,7 +97,7 @@ class App extends Component {
       console.log('CELDA YA SELECCIONADA');
       messagesField.innerHTML = 'Selecciona otra celda';
     } else if (this.state.count % 2 === 0) {
-      console.log('TUTRNO JUGADOR O');
+      console.log('TURNO JUGADOR O');
       this.setState(prevState => ({
         count: prevState.count + 1,
       }));
@@ -116,7 +115,7 @@ class App extends Component {
         oPointsField.innerHTML = this.state.oPoints;
       }
     } else {
-      console.log('TUTRNO JUGADOR X');
+      console.log('TURNO JUGADOR X');
       this.setState(prevState => ({
         count: prevState.count + 1,
       }));
@@ -129,7 +128,7 @@ class App extends Component {
           count: 0,
         });
         this.setState(prevState => ({
-          oPoints: prevState.oPoints + 1,
+          xPoints: prevState.xPoints + 1,
         }));
         xPointsField.innerHTML = this.state.xPoints;
       }
