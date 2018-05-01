@@ -79,68 +79,81 @@ class App extends Component {
   endState(player) {
     messagesField.innerHTML = `${player} ha ganado el juego. Empieza un juego nuevo.`;
     boardCell.innerHTML = '+';
-    this.cleanBoard();
+    Array.from(boardCell).forEach((cell) => {
+      cell.classList.add('disabled');
+    });
+    this.setState({
+      count: 0,
+    });
+  }
+
+  updateScores() {
+    xPointsField.innerHTML = this.state.xPoints;
+    oPointsField.innerHTML = this.state.oPoints;
   }
 
   play = (e) => {
     const thisEl = e.target;
+    messagesField.innerHTML = '';
+
+    if (!thisEl.classList.contains('disabled')) {
+      this.setState(prevState => ({
+        count: prevState.count + 1,
+      }));
+    }
+
     if (this.winner('o')) {
-      console.log('GANA O');
+      // GANA O
       this.endState(O);
     } else if (this.winner('x')) {
-      console.log('GANA X');
+      // GANA X
       this.endState(X);
-    } else if (this.state.count === 9) {
-      console.log('EMPATE');
+    } else if (this.state.count === 8) {
+      // EMPATE
       this.endState('Ninguno');
-    } else if (thisEl.classList.contains('disable')) {
-      console.log('CELDA YA SELECCIONADA');
+    } else if (thisEl.classList.contains('disabled')) {
+      // CELDA YA SELECCIONADA
       messagesField.innerHTML = 'Selecciona otra celda';
     } else if (this.state.count % 2 === 0) {
-      console.log('TURNO JUGADOR O');
-      this.setState(prevState => ({
-        count: prevState.count + 1,
-      }));
+      // console.log('TURNO JUGADOR O
+
       thisEl.innerHTML = O;
-      const classesToAdd = ['disable', 'o'];
+      const classesToAdd = ['disabled', 'o'];
       thisEl.classList.add(...classesToAdd);
+
       if (this.winner('o')) {
-        messagesField.innerHTML = 'O wins';
-        this.setState({
-          count: 0,
-        });
-        this.setState(prevState => ({
-          oPoints: prevState.oPoints + 1,
-        }));
-        oPointsField.innerHTML = this.state.oPoints;
+        this.endState(O);
+        this.setState(
+          {
+            oPoints: this.state.oPoints + 1,
+          },
+          this.updateScores,
+        );
       }
     } else {
-      console.log('TURNO JUGADOR X');
-      this.setState(prevState => ({
-        count: prevState.count + 1,
-      }));
+      // TURNO JUGADOR X
       thisEl.innerHTML = X;
-      const classesToAdd = ['disable', 'x'];
+      const classesToAdd = ['disabled', 'x'];
       thisEl.classList.add(...classesToAdd);
       if (this.winner('x')) {
-        messagesField.innerHTML = 'X wins';
-        this.setState({
-          count: 0,
-        });
-        this.setState(prevState => ({
-          xPoints: prevState.xPoints + 1,
-        }));
-        xPointsField.innerHTML = this.state.xPoints;
+        this.endState(X);
+        this.setState(
+          {
+            xPoints: this.state.xPoints + 1,
+          },
+          this.updateScores,
+        );
       }
     }
   };
 
   cleanBoard = () => {
-    const classesToRemove = ['disable', 'o', 'x'];
+    const classesToRemove = ['disabled', 'o', 'x'];
     Array.from(boardCell).forEach((cell) => {
       cell.innerHTML = '+';
       cell.classList.remove(...classesToRemove);
     });
+    messagesField.innerHTML = '';
     this.setState({
       count: 0,
     });
